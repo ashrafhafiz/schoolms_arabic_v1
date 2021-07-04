@@ -3,7 +3,7 @@
 @toastr_css
 
 @section('title')
-{{ __('main.add_student') }}
+{{ __('main.edit_student') }}
 @stop
 @endsection
 
@@ -12,12 +12,12 @@
 <div class="page-title mb-5">
     <div class="row">
         <div class="col-sm-6">
-            <h4 class="mb-0"> {{ __('main.add_student') }}</h4>
+            <h4 class="mb-0"> {{ __('main.edit_student') }}</h4>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb pt-0 pr-0 float-left float-sm-right ">
                 <li class="breadcrumb-item"><a href="{{ route('home') }}" class="default-color">Home</a></li>
-                <li class="breadcrumb-item active">{{ __('main.add_student') }}</li>
+                <li class="breadcrumb-item active">{{ __('main.edit_student') }}</li>
             </ol>
         </div>
     </div>
@@ -49,23 +49,26 @@
                 </div>
                 @endif
 
-                <form method="post" action="{{ route('student.store') }}" enctype="multipart/form-data"
-                    autocomplete="off">
+                <form method="post" action="{{ route('student.update', $student->id) }}" autocomplete="off">
                     @csrf
+                    @method('PUT')
+                    <input type="hidden" name="id" value="{{ $student->id }}">
                     <h6 style="color: blue; font-weight: bold">
                         {{ __('student.personal_information') }}</h6><br>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>{{ __('student.name_en') }} : <span class="text-danger">*</span></label>
-                                <input class="form-control" name="name_en" type="text" value="{{ old('name_en') }}">
+                                <input class="form-control" name="name_en" type="text"
+                                    value="{{ $student->getTranslation('name','en') }}">
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>{{ __('student.name_ar') }} : <span class="text-danger">*</span></label>
-                                <input type="text" name="name_ar" class="form-control" value="{{ old('name_ar') }}">
+                                <input type="text" name="name_ar" class="form-control"
+                                    value="{{ $student->getTranslation('name','ar') }}">
                             </div>
                         </div>
                     </div>
@@ -74,7 +77,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>{{ __('student.email') }} : <span class="text-danger">*</span></label>
-                                <input type="email" name="email" class="form-control" value="{{ old('email') }}">
+                                <input type="email" name="email" class="form-control" value="{{ $student->email }}">
                             </div>
                         </div>
 
@@ -82,11 +85,12 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>{{ __('student.password') }} : <span class="text-danger">*</span></label>
-                                <input type="password" name="password" class="form-control">
+                                <input type="password" name="password" class="form-control"
+                                    value="{{ $student->password }}">
                             </div>
                         </div>
 
-                        <div class="col-md-3">
+                        <div class=" col-md-3">
                             <div class="form-group">
                                 <label for="gender">{{ __('student.gender') }} :
                                     <span class="text-danger">*</span></label>
@@ -94,7 +98,8 @@
                                     <option selected disabled>{{ __('student.choose') }}...</option>
                                     @foreach($genders as $gender)
                                     <option value="{{ $gender->id }}"
-                                        {{ ($gender->id == old('gender_id') ? "selected" : "") }}>{{ $gender->name }}
+                                        {{ ($gender->id == $student->gender_id) ? "selected" : "" }}>
+                                        {{ $gender->name }}
                                     </option>
                                     @endforeach
                                 </select>
@@ -109,7 +114,7 @@
                                     <option selected disabled>{{ __('student.choose') }}...</option>
                                     @foreach($nationalities as $nationality)
                                     <option value="{{ $nationality->id }}"
-                                        {{ ($nationality->id == old('nationality_id') ? "selected" : "") }}>
+                                        {{ ($nationality->id == $student->nationality_id) ? "selected" : "" }}>
                                         {{ $nationality->name }}</option>
                                     @endforeach
                                 </select>
@@ -123,7 +128,7 @@
                                     <option selected disabled>{{ __('student.choose') }}...</option>
                                     @foreach($blood_types as $blood_type)
                                     <option value="{{ $blood_type->id }}"
-                                        {{ ($blood_type->id == old('blood_type_id') ? "selected" : "") }}>
+                                        {{ ($blood_type->id == $student->blood_type_id) ? "selected" : "" }}>
                                         {{ $blood_type->name }}</option>
                                     @endforeach
                                 </select>
@@ -134,7 +139,7 @@
                             <div class="form-group">
                                 <label>{{ __('student.dob') }} :</label>
                                 <input class="form-control" type="text" id="datepicker-action" name="dob"
-                                    data-date-format="yyyy-mm-dd">
+                                    data-date-format="yyyy-mm-dd" value="{{ $student->dob }}">
                             </div>
                         </div>
 
@@ -151,7 +156,7 @@
                                     <option selected disabled>{{ __('student.choose') }}...</option>
                                     @foreach($levels as $level)
                                     <option value="{{ $level->id }}"
-                                        {{ ($level->id == old('level_id') ? "selected" : "") }}>
+                                        {{ ($level->id == $student->level_id) ? "selected" : "" }}>
                                         {{ $level->name }}</option>
                                     @endforeach
                                 </select>
@@ -185,7 +190,9 @@
                                 <select class="custom-select mr-sm-2" name="guardian_id">
                                     <option selected disabled>{{ __('student.choose') }}...</option>
                                     @foreach($guardians as $guardian)
-                                    <option value="{{ $guardian->id }}">{{ $guardian->f_name }}</option>
+                                    <option value="{{ $guardian->id }}"
+                                        {{ ($guardian->id == $student->guardian_id) ? "selected" : "" }}>
+                                        {{ $guardian->f_name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -201,20 +208,13 @@
                                     $current_year = date("Y");
                                     @endphp
                                     @for($year=$current_year; $year<=$current_year +1 ;$year++) <option
-                                        value="{{ $year }}" {{ ($year == old('academic_year') ? "selected" : "") }}>
+                                        value="{{ $year }}" {{ ($year == $student->academic_year) ? "selected" : "" }}>
                                         {{ $year }}</option>
                                         @endfor
                                 </select>
                             </div>
                         </div>
                     </div><br>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label for="photos">{{ __('student.attachments') }} :
-                                <span class="text-danger">*</span></label>
-                            <input type="file" accept="image/*" name="photos[]" multiple>
-                        </div>
-                    </div>
                     <button class="btn btn-success btn-sm nextBtn btn-lg pull-right"
                         type="submit">{{ __('student.submit') }}</button>
                 </form>

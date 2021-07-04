@@ -4,11 +4,15 @@ return [
     'next' => 'التالي',
     'back' => 'السابق',
     'finish' => 'إنهاء',
+    'edit' => 'تعديل',
+    'delete' => 'حذف',
+    'close' => 'إغلاق',
     'choose' => 'اختيار من القائمة',
     'confirmMsg' => 'هل انت متاكد من حفظ البيانات ؟',
     'attachments' => 'إضافة مرفقات',
 
     'personal_information' => 'معلومات الطالب الشخصية',
+    'student_name' => 'إسم الطالب',
     'name_ar' => 'الإسم بالعربية',
     'name_en' => 'الإسم بالإنجليزية',
     'email' => 'البريد الالكتروني',
@@ -27,5 +31,7 @@ return [
     'academic_year' => 'السنة الدراسية',
     'submit' => 'إرسال',
     'actions' => 'العمليات',
-
+    'delete_student' => 'حذف طالب',
+    'warning_delete' => 'متأكد من عملية حذف الطالب؟',
+    'attachments' => 'المرفقات',
 ];

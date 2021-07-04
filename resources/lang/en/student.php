@@ -4,11 +4,15 @@ return [
     'next' => 'Next',
     'back' => 'Previous',
     'finish' => 'Finish',
+    'edit' => 'Edit',
+    'delete' => 'Delete',
+    'close' => 'Close',
     'choose' => 'Choose from the list',
     'confirmMsg' => 'Are you sure you want to save this record?',
     'attachments' => 'Add attachments',
 
     'personal_information' => 'Student Personal Information',
+    'student_name' => 'Student Name',
     'name_ar' => 'Name (ar)',
     'name_en' => 'Name (en)',
     'email' => 'Email',
@@ -27,5 +31,7 @@ return [
     'academic_year' => 'Academic Year',
     'submit' => 'Submit',
     'actions' => 'Actions',
-
+    'delete_student' => 'Delete Student',
+    'warning_delete' => 'Sure about deleting this student?',
+    'attachments' => 'Attachments',
 ];

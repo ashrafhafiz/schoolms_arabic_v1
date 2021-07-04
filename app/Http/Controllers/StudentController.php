@@ -8,53 +8,47 @@ use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
-    protected $createStudentFn;
-    public function __construct(IStudentRepository $createStudentFn)
+    protected $studentFn;
+    public function __construct(IStudentRepository $studentFn)
     {
-        $this->createStudentFn = $createStudentFn;
+        $this->studentFn = $studentFn;
     }
 
 
     public function index()
     {
-        $data['students'] = $this->createStudentFn->getAllstudents();
+        $data['students'] = $this->studentFn->getAllstudents();
         return view('student.index', $data);
     }
 
 
     public function create()
     {
-        return $this->createStudentFn->createStudent();
+        return $this->studentFn->createStudent();
     }
 
 
     public function store(StoreStudentRequest $request)
     {
-        return $this->createStudentFn->storeStudent($request);
-    }
-
-
-    public function show($id)
-    {
-        //
+        return $this->studentFn->storeStudent($request);
     }
 
 
     public function edit($id)
     {
-        //
+        return $this->studentFn->editStudent($id);
     }
 
 
-    public function update(Request $request, $id)
+    public function update(StoreStudentRequest $request)
     {
-        //
+        return $this->studentFn->updateStudent($request);
     }
 
 
 
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        return $this->studentFn->deleteStudent($request);
     }
 }

@@ -11,4 +11,10 @@ interface IStudentRepository
     public function createStudent();
 
     public function storeStudent($request);
+
+    public function editStudent($id);
+
+    public function updateStudent($request);
+
+    public function deleteStudent($request);
 }

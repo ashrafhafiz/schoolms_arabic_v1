@@ -13,6 +13,7 @@ return [
     'students' => 'Students',
     'students_list' => 'Students List',
     'add_student' => 'Add Student',
+    'edit_student' => 'Edit Student',
     'teachers' => 'Teachers',
     'teachers_list' => 'Teachers List',
     'guardians' => 'Guardians',
@@ -25,6 +26,7 @@ return [
     'onlineclasses' => 'Online classes',
     'settings' => 'Settings',
     'users' => 'Users',
+    'warning_delete' => 'Are you sure about deleting?',
 
     'copyright' => 'Copyright',
     'developer' => 'Ashraf Hafiz - 2021'
